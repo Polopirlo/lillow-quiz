@@ -121,8 +121,8 @@
   .email-input::placeholder { color: #bbb; }
   .rgpd-wrap { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0 4px; font-size: 12px; color: var(--text-muted); line-height: 1.5; cursor: pointer; }
   .rgpd-wrap input[type=checkbox] { margin-top: 2px; cursor: pointer; accent-color: var(--pink-btn); }
-  .skip-link { display: block; text-align: center; margin-top: 14px; font-size: 13px; color: var(--text-muted); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; background: none; border: none; font-family: inherit; width: 100%; }
-  .skip-link:hover { color: var(--black); }
+  .skip-link { display: block; width: 100%; text-align: center; font-size: 16px; font-weight: 700; color: #3D3580; cursor: pointer; background: #F5F4FC; border: 2px solid #3D3580; border-radius: var(--radius); padding: 15px 16px; font-family: inherit; transition: background 0.2s; }
+  .skip-link:hover { background: #ECEAF6; }
 
   /* ═══════════════════════════════════════
      RESULT PAGE  ·  couleur principale #3D3580
@@ -545,8 +545,10 @@
       <label class="rgpd-wrap">
         <input type="checkbox" id="rgpd-check"> J'accepte de recevoir les conseils Lillow par email
       </label>
-      <button class="btn-main" onclick="goToResult(true)" style="margin-top:18px">Recevoir mon diagnostic →</button>
-      <button class="skip-link" onclick="goToResult(false)">Voir mes résultats sans email →</button>
+      <button class="skip-link" onclick="goToResult(false)">📊 Voir mes résultats sans email</button>
+      <div style="font-size:12px;color:#666;text-align:center;margin-top:8px;">Pas d'email requis — on est là pour vous aider</div>
+      <div style="display:flex;align-items:center;gap:10px;margin:16px 0;"><div style="flex:1;height:1px;background:#ddd;"></div><span style="font-size:12px;color:#bbb;flex-shrink:0;">ou recevez-le par email</span><div style="flex:1;height:1px;background:#ddd;"></div></div>
+      <button class="btn-main" onclick="goToResult(true)" style="margin-top:0">Recevoir mon diagnostic →</button>
     </div>
   </div>
 </div>
@@ -970,7 +972,7 @@ function buildResult() {
   var rows = [
     ['Agit sur',       'Le poil',       'Le follicule<br>(partiel)',  'Le follicule<br>(signal)'],
     ['R\u00e9sultat',  '24\u201372h',   '12\u201318 mois',           'Progressif, durable'],
-    ['Co\u00fbt/an',   '300\u2013800\u20ac', '1500\u20133000\u20ac', '49,80\u20ac/mois'],
+    ['Co\u00fbt/an',   '300\u2013800\u20ac', '1500\u20133000\u20ac', '24,90\u20ac par mois'],
     ['Douleur',        'Variable',      'Oui',                       'Non']
   ];
   rows.forEach(function(row, ri) {
@@ -999,7 +1001,7 @@ function buildResult() {
   // ═══ S6 : AVANT / APRÈS ═══
   H += '<div class="result-section">';
   H +=   '<div class="section-label">R\u00e9sultats clients</div>';
-  H +=   '<div class="section-h2">Des femmes qui \u00e9taient exactement l\u00e0 o\u00f9 vous \u00eates.</div>';
+  H +=   '<div class="section-h2">Des r\u00e9sultats observ\u00e9s sur des profils similaires au v\u00f4tre.</div>';
   H +=   '<img src="https://cdn.shopify.com/s/files/1/1006/1860/0778/files/4_394ca992-ee48-462c-818e-f6514f1fcbc4.jpg?v=1771343155" alt="Avant / Apr\u00e8s Lillow" style="width:100%;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.1);display:block;margin-bottom:14px;">';
   H +=   '<div style="font-size:13px;color:#555;text-align:center;line-height:1.6;">';
   H +=     '\u2713 Z\u00e9ro irritation \u00b7 \u2713 Repousse espac\u00e9e jusqu\u2019\u00e0 3 semaines \u00b7 \u2713 Poils plus fins d\u00e8s le mois 1';
@@ -1025,7 +1027,7 @@ function buildResult() {
   // ═══ S8 : POURQUOI CURE 3 MOIS ═══
   H += '<div class="result-section">';
   H +=   '<div class="section-label">Pourquoi la cure 3 mois</div>';
-  H +=   '<div class="section-h2">Pourquoi la cure 3 mois \u2014 et pas juste 1 mois</div>';
+  H +=   '<div class="section-h2">Comment fonctionne la cure 3 mois</div>';
   H +=   '<div class="cure-kpi">94\u00a0%</div>';
   H +=   '<div class="cure-kpi-sub">des clientes ayant eu un r\u00e9sultat visible et durable ont suivi la cure compl\u00e8te de 3 mois</div>';
   H +=   '<div class="cure-body">Le follicule pileux suit un cycle biologique de 90 jours en moyenne. Interrompre ce cycle trop t\u00f4t, c\u2019est ne voir que les premiers effets sans laisser le m\u00e9canisme s\u2019installer durablement.<br><br>Ce n\u2019est pas une strat\u00e9gie commerciale. C\u2019est le temps minimum que prend la biologie.</div>';
@@ -1041,13 +1043,13 @@ function buildResult() {
   H +=   '</div>';
   // Card principale
   H +=   '<div class="product-main">';
-  H +=     '<div class="product-badge">\u2713 RECOMMAND\u00c9 POUR VOTRE PROFIL</div>';
+
   H +=     '<div class="product-name">Cure Lillow 3 mois</div>';
-  H +=     '<div style="margin-bottom:6px;"><span style="font-size:16px;color:#aaa;text-decoration:line-through;">74,70\u20ac</span></div>';
+
   H +=     '<div class="product-price" style="color:#3D3580;">49,80\u20ac</div>';
-  H +=     '<div style="font-size:12px;color:#3d9e42;font-weight:600;margin-bottom:12px;">soit 16,60\u20ac/mois \u00b7 \u00c9conomisez 50%</div>';
+
   H +=     '<div class="product-just">' + p.justif + '</div>';
-  H +=     '<button class="btn-cta" onclick="addToCart(\'VARIANT_3MOIS\')">Commencer ma cure \u2192</button>';
+  H +=     '<button class="btn-cta" onclick="window.parent.postMessage(\'closeQuiz\', \'*\')">Retour \u00e0 la page produit</button>';
   H +=     '<div class="reassurances">';
   H +=       '<span class="reassurance-item">Livraison offerte</span>';
   H +=       '<span class="reassurance-item">Satisfaite ou rembours\u00e9e 30 jours</span>';
@@ -1058,8 +1060,8 @@ function buildResult() {
   H +=   '<div class="product-secondary" style="margin-top:10px;">';
   H +=     '<div class="p-sec-name">Cure d\u00e9couverte \u2014 1 mois</div>';
   H +=     '<div class="p-sec-price">24,90\u20ac</div>';
-  H +=     '<button class="btn-outline" onclick="addToCart(\'VARIANT_1MOIS\')">Commencer par 1 mois</button>';
-  H +=     '<div class="p-sec-warn">\u26A0 R\u00e9sultats partiels pour votre profil \u2014 non recommand\u00e9</div>';
+  H +=     '<div style="font-size:13px;color:#666;text-align:center;padding:6px 0;">Cure d\u00e9couverte (1 mois) disponible \u2014 consultez la page produit.</div>';
+
   H +=   '</div>';
   H += '</div>';
 

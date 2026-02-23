@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,6 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lillow — Diagnostic Personnalisé</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'VOTRE_PIXEL_ID'); // ← Remplacez par votre vrai Pixel ID
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=VOTRE_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -110,19 +125,6 @@
   .loading-progress-fill { height: 100%; background: linear-gradient(90deg, var(--pink), var(--pink-btn)); border-radius: 99px; width: 0%; transition: width 0.6s ease; }
   .loading-pct { font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: right; }
 
-  /* ── EMAIL ── */
-  .email-wrap { width: 100%; max-width: 480px; margin-top: 40px; animation: fadeIn 0.5s ease; }
-  .email-badge { display: inline-block; background: #d4edd6; color: #2e7d32; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; margin-bottom: 16px; }
-  .email-title { font-size: clamp(20px, 5vw, 26px); font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
-  .email-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
-  .email-fields { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-  .email-input { width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: var(--radius); font-family: 'Inter', sans-serif; font-size: 15px; color: var(--black); background: #fff; outline: none; transition: border-color 0.18s; }
-  .email-input:focus { border-color: var(--pink-btn); }
-  .email-input::placeholder { color: #bbb; }
-  .rgpd-wrap { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0 4px; font-size: 12px; color: var(--text-muted); line-height: 1.5; cursor: pointer; }
-  .rgpd-wrap input[type=checkbox] { margin-top: 2px; cursor: pointer; accent-color: var(--pink-btn); }
-  .skip-link { display: block; width: 100%; text-align: center; font-size: 16px; font-weight: 700; color: #3D3580; cursor: pointer; background: #F5F4FC; border: 2px solid #3D3580; border-radius: var(--radius); padding: 15px 16px; font-family: inherit; transition: background 0.2s; }
-  .skip-link:hover { background: #ECEAF6; }
 
   /* ═══════════════════════════════════════
      RESULT PAGE  ·  couleur principale #3D3580
@@ -289,7 +291,7 @@
 
     <!-- Bouton principal -->
     <button
-      onclick="showScreen('s-q1')"
+      onclick="try{fbq('trackCustom','QuizOpened');}catch(e){}showScreen('s-q1')"
       style="background:#3D3580;color:#fff;width:100%;padding:18px;border-radius:12px;font-size:18px;font-weight:700;border:none;cursor:pointer;margin-top:32px;letter-spacing:0.3px;box-shadow:0 6px 24px rgba(61,53,128,0.35);transition:background 0.18s;"
       onmouseover="this.style.background='#2E2860'"
       onmouseout="this.style.background='#3D3580'">
@@ -530,29 +532,6 @@
   </div>
 </div>
 
-<!-- EMAIL -->
-<div class="screen" id="s-email">
-  <img class="logo-img" alt="Lillow">
-  <div style="width:100%;max-width:480px;margin-top:32px">
-    <div class="email-wrap">
-      <div class="email-badge">✓ Diagnostic prêt</div>
-      <div class="email-title">Votre diagnostic personnalisé est prêt.</div>
-      <div class="email-sub">Recevez votre programme Lillow adapté à votre profil, avec vos recommandations et votre timeline personnalisée.</div>
-      <div class="email-fields">
-        <input class="email-input" type="text" id="field-prenom" placeholder="Votre prénom">
-        <input class="email-input" type="email" id="field-email" placeholder="Votre adresse email">
-      </div>
-      <label class="rgpd-wrap">
-        <input type="checkbox" id="rgpd-check"> J'accepte de recevoir les conseils Lillow par email
-      </label>
-      <button class="skip-link" onclick="goToResult(false)">📊 Voir mes résultats sans email</button>
-      <div style="font-size:12px;color:#666;text-align:center;margin-top:8px;">Pas d'email requis — on est là pour vous aider</div>
-      <div style="display:flex;align-items:center;gap:10px;margin:16px 0;"><div style="flex:1;height:1px;background:#ddd;"></div><span style="font-size:12px;color:#bbb;flex-shrink:0;">ou recevez-le par email</span><div style="flex:1;height:1px;background:#ddd;"></div></div>
-      <button class="btn-main" onclick="goToResult(true)" style="margin-top:0">Recevoir mon diagnostic →</button>
-    </div>
-  </div>
-</div>
-
 <!-- RESULT -->
 <div class="screen" id="s-result">
   <img class="logo-img" alt="Lillow">
@@ -604,6 +583,7 @@ function getOptLabel(el) {
 
 // ── SINGLE SELECT + AUTO-ADVANCE ──
 function selectOpt(el, q) {
+  try { fbq('trackCustom', 'QuizStepCompleted', {step: q}); } catch(e) {}
   el.closest('.options').querySelectorAll('.opt').forEach(function(o) { o.classList.remove('selected'); });
   el.classList.add('selected');
 
@@ -696,11 +676,11 @@ function goToLoading() {
     if (progress >= 100) clearInterval(iv);
   }, 100);
 
-  setTimeout(function() { showScreen('s-email'); }, 6000);
+  setTimeout(function() { goToResult(); }, 6000);
 }
 
 // ── RÉSULTAT ──
-function goToResult(withEmail) {
+function goToResult() {
   state.totalScore = state.q3score + state.q5score + state.q6score + state.q7score + state.q8score;
   buildResult();
   showScreen('s-result');
@@ -1049,7 +1029,7 @@ function buildResult() {
   H +=     '<div class="product-price" style="color:#3D3580;">49,80\u20ac</div>';
 
   H +=     '<div class="product-just">' + p.justif + '</div>';
-  H +=     '<button class="btn-cta" onclick="window.parent.postMessage(\'closeQuiz\', \'*\')">Retour \u00e0 la page produit</button>';
+  H +=     '<button class="btn-cta" onclick="try{fbq(\'trackCustom\',\'PurchaseClick\');}catch(e){}addCure3Mois()" style="margin-top:16px;">\uD83D\uDED2 Profiter de l\u2019offre 2+1 gratuit \u2014 49,80\u20ac</button>';
   H +=     '<div class="reassurances">';
   H +=       '<span class="reassurance-item">Livraison offerte</span>';
   H +=       '<span class="reassurance-item">Satisfaite ou rembours\u00e9e 30 jours</span>';
@@ -1108,11 +1088,13 @@ function buildResult() {
 })();
 
 // ── CART / POPUP ──
-function addToCart(variantId) {
+var SERUM_VARIANT_ID = '60919842439498'; // ← ID variante du "Sérum naturel réducteur de repousse" (Admin Shopify → Produits → variante → URL)
+
+function addCure3Mois() {
   fetch('/cart/add.js', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({id: variantId, quantity: 1})
+    body: JSON.stringify({id: SERUM_VARIANT_ID, quantity: 3})
   })
   .then(function() { window.location.href = '/cart'; })
   .catch(function() { window.location.href = 'https://lillow.fr/products/serum-naturel-inhibeur-integral'; });
